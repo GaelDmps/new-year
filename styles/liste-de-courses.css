@@ -1,0 +1,180 @@
+/* ============================================
+   STYLES SPÉCIFIQUES - PAGE LISTE DE COURSES
+   ============================================
+   Styles pour la liste de courses (sans cases à cocher)
+   ============================================ */
+
+/* ============================================
+   CONTAINER PRINCIPAL - MOBILE FIRST
+   ============================================ */
+.shopping-lists {
+    width: 100%; /* Prend toute la largeur */
+    margin: 1.5rem auto; /* Marge verticale et centrage horizontal */
+}
+
+/* ============================================
+   CATÉGORIE DE COURSES
+   ============================================ */
+.shopping-category {
+    /* Fond dégradé transparent (or → rouge) */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3); /* Bordure or semi-transparente */
+    border-radius: 12px; /* Coins arrondis */
+    padding: 1.25rem; /* Espacement interne (mobile) */
+    margin-bottom: 1.25rem; /* Espacement entre les catégories */
+    backdrop-filter: blur(10px); /* Effet de flou en arrière-plan */
+    opacity: 0; /* Commence invisible pour l'animation */
+    animation: slideInLeft 0.6s ease forwards; /* Animation d'apparition */
+}
+
+/* Délais d'animation progressifs pour chaque catégorie (effet cascade) */
+.shopping-category:nth-child(1) { animation-delay: 0.1s; }
+.shopping-category:nth-child(2) { animation-delay: 0.2s; }
+.shopping-category:nth-child(3) { animation-delay: 0.3s; }
+.shopping-category:nth-child(4) { animation-delay: 0.4s; }
+.shopping-category:nth-child(5) { animation-delay: 0.5s; }
+
+/* Animation de glissement depuis la gauche */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px); /* Commence 30px à gauche (mobile) */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Revient à sa position normale */
+    }
+}
+
+/* État actif (clic/tap) */
+.shopping-category:active {
+    border-color: var(--gold); /* Bordure plus visible */
+    transform: scale(0.98); /* Réduit légèrement */
+}
+
+/* ============================================
+   TITRE DE LA CATÉGORIE
+   ============================================ */
+.shopping-category h2 {
+    color: var(--gold); /* Titre en or */
+    font-size: 1.4rem; /* Taille mobile */
+    margin-bottom: 1rem;
+    text-align: center; /* Centré */
+    position: relative;
+    display: inline-block;
+    width: 100%; /* Prend toute la largeur */
+}
+
+/* ============================================
+   LISTE D'ÉLÉMENTS
+   ============================================ */
+.shopping-list {
+    list-style: none; /* Enlève les puces par défaut */
+    padding: 0; /* Pas de padding */
+}
+
+/* ============================================
+   ITEM DE LA LISTE
+   ============================================ */
+.shopping-item {
+    padding: 0.75rem; /* Espacement interne (mobile) */
+    margin-bottom: 0.5rem; /* Espacement entre les items */
+    background: rgba(255, 255, 255, 0.05); /* Fond blanc très transparent */
+    border-radius: 8px; /* Coins arrondis */
+    color: var(--white); /* Texte blanc */
+    font-size: 0.95rem; /* Taille mobile */
+    line-height: 1.4; /* Espacement entre les lignes */
+    word-break: break-word; /* Permet de couper les mots longs */
+    list-style: none; /* Confirme qu'il n'y a pas de puce */
+    position: relative; /* Pour la puce personnalisée */
+    padding-left: 1.5rem; /* Espace à gauche pour la puce */
+}
+
+/* Puce personnalisée dorée (créée avec ::before) */
+.shopping-item::before {
+    content: '•'; /* Caractère puce */
+    color: var(--gold); /* Couleur or */
+    font-weight: bold; /* Gras */
+    font-size: 1.2rem; /* Plus grand que le texte */
+    position: absolute; /* Positionné par rapport à .shopping-item */
+    left: 0.5rem; /* Position à gauche */
+}
+
+/* ============================================
+   MEDIA QUERIES - TABLETTE (≥ 481px)
+   ============================================ */
+@media (min-width: 481px) {
+    .shopping-lists {
+        margin: 2rem auto;
+    }
+    
+    .shopping-category {
+        padding: 1.5rem; /* Plus d'espace */
+        margin-bottom: 1.5rem;
+        border-radius: 15px;
+    }
+    
+    .shopping-category h2 {
+        font-size: 1.6rem; /* Plus grand */
+        margin-bottom: 1.25rem;
+    }
+    
+    .shopping-item {
+        padding: 0.9rem; /* Plus d'espace */
+        padding-left: 1.75rem; /* Plus d'espace pour la puce */
+        margin-bottom: 0.6rem;
+        border-radius: 10px;
+        font-size: 1.05rem; /* Plus grand */
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES - DESKTOP (≥ 769px)
+   ============================================ */
+@media (min-width: 769px) {
+    .shopping-lists {
+        max-width: 1000px; /* Limite la largeur pour la lisibilité */
+        margin: 2rem auto;
+    }
+    
+    .shopping-category {
+        padding: 2rem; /* Encore plus d'espace */
+        margin-bottom: 2rem;
+    }
+    
+    /* Effet hover sur desktop */
+    .shopping-category:hover {
+        border-color: var(--gold); /* Bordure plus visible */
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3); /* Ombre dorée */
+        transform: translateX(5px); /* Déplace légèrement vers la droite */
+    }
+    
+    .shopping-category h2 {
+        font-size: 1.8rem; /* Encore plus grand */
+        margin-bottom: 1.5rem;
+    }
+    
+    .shopping-item {
+        padding: 1rem; /* Encore plus d'espace */
+        padding-left: 2rem; /* Encore plus d'espace pour la puce */
+        font-size: 1.1rem; /* Plus grand */
+    }
+    
+    /* Effet hover sur les items (desktop) */
+    .shopping-item:hover {
+        background: rgba(255, 215, 0, 0.1); /* Fond plus visible */
+        transform: translateX(5px); /* Déplace vers la droite */
+    }
+    
+    /* Animation de glissement plus prononcée sur desktop */
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-50px); /* Commence plus à gauche */
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}

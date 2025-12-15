@@ -1,0 +1,348 @@
+/* ============================================
+   STYLES SPÉCIFIQUES - PAGE PARTICIPANTS
+   ============================================
+   Styles pour la grille des participants
+   ============================================ */
+
+/* ============================================
+   CONTAINER PRINCIPAL - MOBILE FIRST
+   ============================================ */
+.participants-container {
+    width: 100%; /* Prend toute la largeur */
+    margin: 1.5rem auto; /* Marge verticale et centrage horizontal */
+}
+
+/* ============================================
+   GRILLE DES PARTICIPANTS
+   ============================================ */
+.participants-grid {
+    display: grid; /* Utilise CSS Grid */
+    grid-template-columns: 1fr; /* Mobile : 1 colonne */
+    gap: 1rem; /* Espacement entre les cartes */
+    margin-bottom: 2rem; /* Espacement avant le résumé */
+}
+
+/* ============================================
+   CARTE DE PARTICIPANT
+   ============================================ */
+.participant-card {
+    /* Fond dégradé transparent (or → rouge) */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3); /* Bordure or semi-transparente */
+    border-radius: 12px; /* Coins arrondis */
+    padding: 1.25rem; /* Espacement interne (mobile) */
+    text-align: center; /* Centre le contenu */
+    backdrop-filter: blur(10px); /* Effet de flou en arrière-plan */
+    transition: all 0.3s ease; /* Transition fluide */
+    opacity: 0; /* Commence invisible pour l'animation */
+    animation: fadeInUp 0.6s ease forwards; /* Animation d'apparition */
+    -webkit-tap-highlight-color: transparent; /* Enlève le surlignage au tap */
+    touch-action: manipulation; /* Optimise le touch */
+}
+
+/* Délais d'animation progressifs pour chaque carte (effet cascade) */
+.participant-card:nth-child(1) { animation-delay: 0.05s; }
+.participant-card:nth-child(2) { animation-delay: 0.1s; }
+.participant-card:nth-child(3) { animation-delay: 0.15s; }
+.participant-card:nth-child(4) { animation-delay: 0.2s; }
+.participant-card:nth-child(5) { animation-delay: 0.25s; }
+.participant-card:nth-child(6) { animation-delay: 0.3s; }
+.participant-card:nth-child(7) { animation-delay: 0.35s; }
+.participant-card:nth-child(8) { animation-delay: 0.4s; }
+.participant-card:nth-child(9) { animation-delay: 0.45s; }
+.participant-card:nth-child(10) { animation-delay: 0.5s; }
+.participant-card:nth-child(11) { animation-delay: 0.55s; }
+
+/* Animation d'apparition depuis le bas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Commence 20px plus bas */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Revient à sa position normale */
+    }
+}
+
+/* État actif (clic/tap) */
+.participant-card:active {
+    transform: scale(0.98); /* Réduit légèrement */
+    border-color: var(--gold); /* Bordure plus visible */
+}
+
+/* Style spécial pour la carte "ajouter" (non utilisée actuellement) */
+.participant-card.add-new {
+    border-style: dashed; /* Bordure en pointillés */
+    border-color: rgba(255, 215, 0, 0.5); /* Plus transparente */
+}
+
+.participant-card.add-new:active {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.15); /* Fond plus visible */
+}
+
+/* ============================================
+   AVATAR DU PARTICIPANT
+   ============================================ */
+.participant-avatar {
+    font-size: 3rem; /* Taille de l'emoji (mobile) */
+    margin-bottom: 0.75rem;
+    display: inline-block; /* Permet les transformations */
+    animation: bounce 2s ease-in-out infinite; /* Animation de rebond infinie */
+}
+
+/* Animation de rebond vertical */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); } /* Position normale */
+    50% { transform: translateY(-8px); } /* Monte de 8px */
+}
+
+/* ============================================
+   TITRE ET DESCRIPTION DU PARTICIPANT
+   ============================================ */
+.participant-card h3 {
+    color: var(--gold); /* Titre en or */
+    font-size: 1.2rem; /* Taille mobile */
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+}
+
+.participant-card p {
+    color: var(--white);
+    opacity: 0.8; /* Légèrement transparent */
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem; /* Taille mobile */
+}
+
+/* ============================================
+   BOUTONS (NON UTILISÉS ACTUELLEMENT)
+   ============================================ */
+.edit-btn, .add-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark)); /* Dégradé or */
+    color: var(--blue-dark); /* Texte foncé */
+    border: none; /* Pas de bordure */
+    padding: 0.7rem 1.5rem; /* Espacement interne */
+    border-radius: 25px; /* Coins très arrondis (forme de pilule) */
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer; /* Curseur pointeur */
+    transition: all 0.3s ease; /* Transition fluide */
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); /* Ombre dorée */
+    touch-action: manipulation; /* Optimise le touch */
+    min-height: 44px; /* Taille minimale pour le touch (recommandation Apple) */
+    -webkit-tap-highlight-color: transparent;
+}
+
+.edit-btn:active, .add-btn:active {
+    transform: scale(0.95); /* Réduit légèrement */
+    box-shadow: 0 2px 10px rgba(255, 215, 0, 0.5); /* Ombre plus petite */
+}
+
+/* ============================================
+   RÉSUMÉ DES PARTICIPANTS
+   ============================================ */
+.participants-summary {
+    margin-top: 2rem; /* Espacement avant le résumé */
+}
+
+.summary-card {
+    /* Fond dégradé avec plus de rouge */
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.2) 0%, rgba(255, 215, 0, 0.2) 100%);
+    border: 2px solid var(--red); /* Bordure rouge */
+    border-radius: 12px;
+    padding: 1.5rem; /* Espacement interne (mobile) */
+    text-align: center; /* Centre le contenu */
+    backdrop-filter: blur(10px); /* Effet de flou */
+    animation: pulse-glow 2s ease-in-out infinite; /* Animation de pulsation */
+}
+
+/* Animation de pulsation de la lueur */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 15px rgba(220, 20, 60, 0.5); } /* Lueur rouge */
+    50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.7); } /* Lueur or */
+}
+
+.summary-card h2 {
+    color: var(--gold); /* Titre en or */
+    font-size: 1.5rem; /* Taille mobile */
+    margin-bottom: 0.75rem;
+}
+
+.summary-card .count {
+    font-size: 2.5rem; /* Taille du nombre (mobile) */
+    color: var(--gold-light); /* Or clair */
+    font-weight: bold;
+    margin: 0.75rem 0;
+    line-height: 1; /* Pas d'espacement entre les lignes */
+}
+
+.summary-card .count span {
+    color: var(--gold); /* Or pour le nombre */
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); /* Lueur dorée */
+}
+
+.summary-card .subtitle {
+    color: var(--white);
+    opacity: 0.9;
+    font-size: 1rem; /* Taille mobile */
+}
+
+/* ============================================
+   MEDIA QUERIES - TABLETTE (≥ 481px)
+   ============================================ */
+@media (min-width: 481px) {
+    .participants-container {
+        margin: 2rem auto;
+    }
+    
+    /* Grille à 2 colonnes sur tablette */
+    .participants-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales */
+        gap: 1.25rem; /* Plus d'espace */
+        margin-bottom: 2.5rem;
+    }
+    
+    .participant-card {
+        padding: 1.5rem; /* Plus d'espace */
+        border-radius: 15px;
+    }
+    
+    .participant-avatar {
+        font-size: 3.5rem; /* Plus grand */
+        margin-bottom: 1rem;
+    }
+    
+    .participant-card h3 {
+        font-size: 1.35rem;
+    }
+    
+    .participant-card p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .edit-btn, .add-btn {
+        padding: 0.75rem 1.75rem;
+        font-size: 1rem;
+    }
+    
+    .participants-summary {
+        margin-top: 2.5rem;
+    }
+    
+    .summary-card {
+        padding: 1.75rem; /* Plus d'espace */
+        border-radius: 15px;
+    }
+    
+    .summary-card h2 {
+        font-size: 1.75rem;
+    }
+    
+    .summary-card .count {
+        font-size: 2.75rem; /* Plus grand */
+    }
+    
+    .summary-card .subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES - DESKTOP (≥ 769px)
+   ============================================ */
+@media (min-width: 769px) {
+    .participants-container {
+        max-width: 1200px; /* Limite la largeur pour la lisibilité */
+        margin: 2rem auto;
+    }
+    
+    /* Grille responsive : autant de colonnes que possible (min 250px par carte) */
+    .participants-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem; /* Encore plus d'espace */
+        margin-bottom: 3rem;
+    }
+    
+    .participant-card {
+        padding: 2rem; /* Encore plus d'espace */
+    }
+    
+    /* Effet hover sur desktop */
+    .participant-card:hover {
+        transform: translateY(-10px) scale(1.05); /* Monte de 10px et agrandit de 5% */
+        border-color: var(--gold); /* Bordure plus visible */
+        box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4); /* Ombre dorée */
+    }
+    
+    .participant-card.add-new:hover {
+        border-color: var(--gold);
+        background: rgba(255, 215, 0, 0.15); /* Fond plus visible */
+    }
+    
+    .participant-avatar {
+        font-size: 4rem; /* Encore plus grand */
+    }
+    
+    .participant-card h3 {
+        font-size: 1.5rem; /* Plus grand */
+        margin-bottom: 0.5rem;
+    }
+    
+    .participant-card p {
+        margin-bottom: 1rem;
+    }
+    
+    .edit-btn, .add-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+    
+    /* Effet hover sur les boutons (desktop) */
+    .edit-btn:hover, .add-btn:hover {
+        transform: scale(1.1); /* Agrandit de 10% */
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5); /* Ombre plus grande */
+        background: linear-gradient(135deg, var(--gold-light), var(--gold)); /* Dégradé inversé */
+    }
+    
+    .participants-summary {
+        margin-top: 3rem;
+    }
+    
+    .summary-card {
+        padding: 2rem; /* Encore plus d'espace */
+    }
+    
+    .summary-card h2 {
+        font-size: 2rem; /* Plus grand */
+        margin-bottom: 1rem;
+    }
+    
+    .summary-card .count {
+        font-size: 3rem; /* Encore plus grand */
+        margin: 1rem 0;
+    }
+    
+    .summary-card .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    /* Animation d'apparition plus prononcée sur desktop */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px); /* Commence plus bas */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Animation de rebond plus prononcée sur desktop */
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); } /* Monte plus */
+    }
+}

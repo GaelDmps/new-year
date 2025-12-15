@@ -1,0 +1,322 @@
+/* ============================================
+   STYLES SPÉCIFIQUES - PAGE PROGRAMME
+   ============================================
+   Styles pour la timeline du programme de la soirée
+   ============================================ */
+
+/* ============================================
+   TIMELINE (LIGNE TEMPORELLE) - MOBILE FIRST
+   ============================================ */
+.timeline {
+    position: relative; /* Permet de positionner les éléments enfants en absolu */
+    width: 100%; /* Prend toute la largeur */
+    margin: 1.5rem auto; /* Marge verticale et centrage horizontal */
+    padding: 1.5rem 0; /* Padding vertical pour laisser de l'espace autour */
+}
+
+/* Ligne verticale de la timeline (créée avec ::before) */
+.timeline::before {
+    content: ''; /* Nécessaire pour créer l'élément */
+    position: absolute; /* Positionné par rapport à .timeline */
+    left: 15px; /* Position à gauche (mobile) */
+    top: 0; /* Commence en haut */
+    bottom: 0; /* Va jusqu'en bas */
+    width: 2px; /* Épaisseur de la ligne (mobile) */
+    /* Dégradé vertical : or → rouge → or */
+    background: linear-gradient(180deg, var(--gold), var(--red), var(--gold));
+    animation: timeline-glow 3s ease-in-out infinite; /* Animation de pulsation */
+}
+
+/* Animation qui fait scintiller la ligne de timeline */
+@keyframes timeline-glow {
+    0%, 100% { box-shadow: 0 0 8px rgba(255, 215, 0, 0.5); } /* Lueur faible */
+    50% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); } /* Lueur forte */
+}
+
+/* ============================================
+   ITEM DE TIMELINE (CHAQUE ÉVÉNEMENT)
+   ============================================ */
+.timeline-item {
+    position: relative; /* Pour positionner le marker et le contenu */
+    padding-left: 50px; /* Espace à gauche pour la ligne et le marker (mobile) */
+    margin-bottom: 2rem; /* Espacement entre les événements */
+    opacity: 0; /* Commence invisible pour l'animation */
+    animation: fadeInUp 0.6s ease forwards; /* Animation d'apparition */
+}
+
+/* Délais d'animation progressifs pour chaque item (effet cascade) */
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+.timeline-item:nth-child(6) { animation-delay: 0.6s; }
+
+/* Animation d'apparition depuis le bas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Commence 20px plus bas */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Revient à sa position normale */
+    }
+}
+
+/* ============================================
+   MARKER (POINT SUR LA LIGNE)
+   ============================================ */
+.timeline-marker {
+    position: absolute; /* Positionné par rapport à .timeline-item */
+    left: 5px; /* Position à gauche (mobile) */
+    top: 0; /* Aligné avec le haut du contenu */
+    width: 20px; /* Taille du cercle (mobile) */
+    height: 20px;
+    border-radius: 50%; /* Forme circulaire */
+    background: var(--gold); /* Fond or */
+    border: 2px solid var(--white); /* Bordure blanche */
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.8); /* Lueur dorée */
+    animation: pulse 2s ease-in-out infinite; /* Animation de pulsation */
+}
+
+/* Animation de pulsation du marker */
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); /* Taille normale */
+        box-shadow: 0 0 12px rgba(255, 215, 0, 0.8); 
+    }
+    50% { 
+        transform: scale(1.15); /* Agrandit de 15% */
+        box-shadow: 0 0 20px rgba(255, 215, 0, 1); /* Lueur plus forte */
+    }
+}
+
+/* Marker spécial pour l'événement highlight (minuit) */
+.timeline-item.highlight .timeline-marker {
+    background: var(--red); /* Rouge au lieu d'or */
+    box-shadow: 0 0 18px rgba(220, 20, 60, 1); /* Lueur rouge */
+    animation: highlight-pulse 1s ease-in-out infinite; /* Pulsation plus rapide */
+}
+
+/* Animation de pulsation pour l'événement spécial */
+@keyframes highlight-pulse {
+    0%, 100% { 
+        transform: scale(1.2); /* Plus grand que les autres */
+        box-shadow: 0 0 20px rgba(220, 20, 60, 1); 
+    }
+    50% { 
+        transform: scale(1.35); /* Agrandit encore plus */
+        box-shadow: 0 0 30px rgba(220, 20, 60, 1.2); 
+    }
+}
+
+/* ============================================
+   CONTENU DE L'ÉVÉNEMENT (CARTE)
+   ============================================ */
+.timeline-content {
+    /* Fond dégradé transparent (or → rouge) */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3); /* Bordure or semi-transparente */
+    border-radius: 12px; /* Coins arrondis */
+    padding: 1rem; /* Espacement interne (mobile) */
+    backdrop-filter: blur(10px); /* Effet de flou en arrière-plan */
+    transition: all 0.3s ease; /* Transition fluide */
+}
+
+/* État actif (clic/tap) */
+.timeline-content:active {
+    transform: scale(0.98); /* Réduit légèrement */
+    border-color: var(--gold); /* Bordure plus visible */
+}
+
+/* Titre de l'événement */
+.timeline-content h3 {
+    color: var(--gold); /* Titre en or */
+    font-size: 1.2rem; /* Taille mobile */
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+}
+
+/* ============================================
+   AFFICHAGE DE L'HEURE - MOBILE
+   ============================================
+   Sur mobile, l'heure s'affiche dans un badge en haut de la carte
+   ============================================ */
+
+/* Cache l'heure à gauche (utilisée sur desktop) */
+.timeline-item[data-time]::before {
+    display: none; /* Caché sur mobile */
+}
+
+/* Affiche l'heure dans un badge en haut de la carte (mobile) */
+.timeline-content[data-time]::before {
+    content: attr(data-time); /* Récupère la valeur de l'attribut data-time du HTML */
+    display: block; /* Sur sa propre ligne */
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.5); /* Fond noir semi-transparent */
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--gold); /* Bordure or */
+    margin-bottom: 0.5rem; /* Espacement avec le titre */
+    text-align: center;
+    width: fit-content; /* S'adapte au contenu */
+    margin-left: auto; /* Centre horizontalement */
+    margin-right: auto;
+}
+
+/* Description de l'événement */
+.timeline-content p {
+    color: var(--white);
+    opacity: 0.9; /* Légèrement transparent */
+    line-height: 1.5;
+    font-size: 0.9rem; /* Taille mobile */
+}
+
+/* Style spécial pour l'événement highlight (minuit) */
+.timeline-item.highlight .timeline-content {
+    /* Fond avec plus de rouge */
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.2) 0%, rgba(255, 215, 0, 0.2) 100%);
+    border-color: var(--red); /* Bordure rouge */
+    animation: highlight-shimmer 2s ease-in-out infinite; /* Animation de scintillement */
+}
+
+/* Animation de scintillement pour l'événement spécial */
+@keyframes highlight-shimmer {
+    0%, 100% { box-shadow: 0 0 15px rgba(220, 20, 60, 0.5); } /* Lueur rouge */
+    50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.7); } /* Lueur or */
+}
+
+/* ============================================
+   MEDIA QUERIES - TABLETTE (≥ 481px)
+   ============================================ */
+@media (min-width: 481px) {
+    .timeline {
+        padding: 2rem 0;
+        margin: 2rem auto;
+    }
+    
+    /* Ligne plus épaisse et plus à droite */
+    .timeline::before {
+        left: 30px;
+        width: 3px; /* Plus épaisse */
+    }
+    
+    .timeline-item {
+        padding-left: 70px; /* Plus d'espace à gauche */
+        margin-bottom: 2.5rem;
+    }
+    
+    /* Marker plus grand */
+    .timeline-marker {
+        left: 19px; /* Ajusté pour être centré sur la ligne */
+        width: 22px;
+        height: 22px;
+        border: 3px solid var(--white); /* Bordure plus épaisse */
+    }
+    
+    /* Affiche l'heure à gauche de la timeline (tablette et desktop) */
+    .timeline-item[data-time]::before {
+        display: block; /* Visible */
+        content: attr(data-time); /* Récupère l'heure depuis l'attribut HTML */
+        position: absolute;
+        left: -65px; /* Position à gauche de la timeline */
+        top: 2px;
+        font-size: 0.85rem;
+        color: var(--gold);
+        font-weight: bold;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 0.25rem 0.5rem;
+        border-radius: 5px;
+        border: 1px solid var(--gold);
+        white-space: nowrap; /* Empêche le retour à la ligne */
+    }
+    
+    /* Cache l'heure dans la carte (on utilise celle à gauche) */
+    .timeline-content[data-time]::before {
+        display: none; /* Caché sur tablette et desktop */
+    }
+    
+    .timeline-content {
+        padding: 1.25rem; /* Plus d'espace */
+        border-radius: 15px;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.35rem; /* Plus grand */
+    }
+    
+    .timeline-content p {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES - DESKTOP (≥ 769px)
+   ============================================ */
+@media (min-width: 769px) {
+    .timeline {
+        max-width: 800px; /* Limite la largeur pour la lisibilité */
+        padding: 2rem 0;
+        margin: 2rem auto;
+    }
+    
+    /* Ligne encore plus à droite */
+    .timeline::before {
+        left: 50px;
+    }
+    
+    .timeline-item {
+        padding-left: 100px; /* Encore plus d'espace */
+        margin-bottom: 3rem;
+    }
+    
+    /* Marker encore plus grand */
+    .timeline-marker {
+        left: 38px; /* Centré sur la ligne */
+        width: 25px;
+        height: 25px;
+    }
+    
+    /* Heure encore plus à gauche */
+    .timeline-item[data-time]::before {
+        left: -80px;
+        font-size: 0.9rem; /* Plus grand */
+        padding: 0.3rem 0.6rem;
+    }
+    
+    /* Confirme que l'heure dans la carte est cachée */
+    .timeline-content[data-time]::before {
+        display: none; /* Caché sur desktop */
+    }
+    
+    .timeline-content {
+        padding: 1.5rem; /* Encore plus d'espace */
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.5rem; /* Plus grand */
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Effet hover sur desktop */
+    .timeline-item:hover .timeline-content {
+        transform: translateX(10px); /* Déplace vers la droite */
+        border-color: var(--gold); /* Bordure plus visible */
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3); /* Ombre dorée */
+    }
+    
+    /* Animation d'apparition plus prononcée sur desktop */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px); /* Commence plus bas */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

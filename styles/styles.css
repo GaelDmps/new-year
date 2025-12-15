@@ -1,0 +1,427 @@
+/* ============================================
+   STYLES PRINCIPAUX - COMMUNS À TOUTES LES PAGES
+   ============================================
+   Ce fichier contient les styles de base utilisés
+   sur toutes les pages du site
+   ============================================ */
+
+/* ============================================
+   VARIABLES CSS (COULEURS ET VALEURS)
+   ============================================
+   Définies dans :root pour être accessibles partout
+   Permet de changer les couleurs globalement facilement
+   ============================================ */
+:root {
+    --gold: #FFD700;           /* Or principal - utilisé pour les titres et accents */
+    --gold-dark: #FFA500;      /* Or foncé - utilisé pour les dégradés */
+    --gold-light: #FFF8DC;     /* Or clair - utilisé pour les textes secondaires */
+    --red: #DC143C;            /* Rouge - utilisé pour les éléments spéciaux (minuit) */
+    --red-dark: #8B0000;       /* Rouge foncé - variante du rouge */
+    --blue-dark: #0D1117;      /* Bleu nuit foncé - utilisé pour les textes sur fond or */
+    --blue-mid: #161B22;       /* Bleu nuit moyen - non utilisé actuellement */
+    --white: #FFFFFF;          /* Blanc - utilisé pour le texte principal */
+    --sparkle: rgba(255, 215, 0, 0.8);  /* Or transparent - utilisé pour les particules scintillantes */
+}
+
+/* ============================================
+   RESET CSS (RÉINITIALISATION DES STYLES)
+   ============================================
+   Enlève les marges et paddings par défaut du navigateur
+   et applique box-sizing: border-box partout
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Les bordures et paddings sont inclus dans la largeur/hauteur */
+}
+
+/* ============================================
+   STYLES DU BODY (CORPS DE LA PAGE)
+   ============================================ */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police système moderne */
+    /* Fond dégradé bleu nuit (de gauche-haut à droite-bas) */
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: var(--white); /* Texte blanc */
+    min-height: 100vh; /* Hauteur minimale = 100% de la hauteur de la fenêtre */
+    overflow-x: hidden; /* Cache le scroll horizontal */
+    position: relative; /* Permet de positionner les éléments enfants en absolu */
+    font-size: 16px; /* Taille de base pour le texte */
+    line-height: 1.5; /* Espacement entre les lignes */
+}
+
+/* ============================================
+   ANIMATIONS DE FOND (OPTIMISÉES MOBILE)
+   ============================================
+   Crée des effets visuels en arrière-plan avec ::before et ::after
+   ============================================ */
+
+/* Première couche : Dégradés radiaux pour effet de profondeur */
+body::before {
+    content: ''; /* Nécessaire pour que le pseudo-élément existe */
+    position: fixed; /* Fixe par rapport à la fenêtre (ne scroll pas) */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Deux cercles radiaux (or et rouge) pour créer de la profondeur */
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(220, 20, 60, 0.08) 0%, transparent 50%);
+    pointer-events: none; /* Ne bloque pas les clics */
+    z-index: 0; /* Derrière le contenu */
+}
+
+/* Deuxième couche : Particules scintillantes animées */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Motif de petits points dorés qui se répètent */
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, var(--sparkle), transparent),
+        radial-gradient(1px 1px at 60px 70px, rgba(255, 215, 0, 0.4), transparent);
+    background-repeat: repeat; /* Répète le motif */
+    background-size: 80px 80px; /* Taille du motif (mobile) */
+    animation: sparkle 20s linear infinite; /* Animation infinie de 20 secondes */
+    opacity: 0.4; /* Légèrement transparent */
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Animation qui fait bouger les particules scintillantes */
+@keyframes sparkle {
+    0% { transform: translate(0, 0); }      /* Position initiale */
+    100% { transform: translate(80px, 80px); } /* Déplace le motif de 80px */
+}
+
+/* ============================================
+   HEADER (EN-TÊTE) - MOBILE FIRST
+   ============================================ */
+header {
+    padding: 1rem; /* Padding réduit sur mobile */
+    text-align: center; /* Centre le contenu */
+    position: relative; /* Pour le z-index */
+    z-index: 1; /* Au-dessus du fond */
+}
+
+.header-content {
+    width: 100%; /* Prend toute la largeur */
+    margin: 0 auto; /* Centre horizontalement */
+}
+
+/* ============================================
+   TITRE PRINCIPAL AVEC EFFET DE LUEUR
+   ============================================ */
+.title-glow {
+    font-size: 1.8rem; /* Taille mobile */
+    font-weight: bold;
+    /* Dégradé de texte (or clair → or → or clair) */
+    background: linear-gradient(45deg, var(--gold), var(--gold-light), var(--gold));
+    -webkit-background-clip: text; /* Coupe le fond selon la forme du texte (Chrome/Safari) */
+    -webkit-text-fill-color: transparent; /* Rend le texte transparent pour voir le dégradé */
+    background-clip: text; /* Version standard */
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Ombre dorée */
+    animation: glow 2s ease-in-out infinite alternate; /* Animation de pulsation */
+    margin-bottom: 0.5rem;
+    word-wrap: break-word; /* Permet de couper les mots longs */
+    line-height: 1.2;
+}
+
+/* Animation qui fait scintiller le titre */
+@keyframes glow {
+    from {
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5)); /* Lueur faible */
+    }
+    to {
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)); /* Lueur forte */
+    }
+}
+
+/* ============================================
+   SOUS-TITRE
+   ============================================ */
+.subtitle {
+    font-size: 0.9rem; /* Plus petit que le titre */
+    color: var(--gold-light); /* Or clair */
+    opacity: 0.9; /* Légèrement transparent */
+    padding: 0 0.5rem; /* Padding horizontal */
+}
+
+/* ============================================
+   LIEN DE RETOUR
+   ============================================ */
+.back-link {
+    display: inline-block; /* Permet les transformations */
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem; /* Zone de touch confortable */
+    color: var(--gold);
+    text-decoration: none; /* Pas de soulignement */
+    font-size: 0.95rem;
+    transition: all 0.3s ease; /* Transition fluide */
+    position: relative;
+    z-index: 2; /* Au-dessus du contenu */
+    touch-action: manipulation; /* Optimise le touch sur mobile */
+}
+
+/* État actif (quand on clique/touche) */
+.back-link:active {
+    color: var(--gold-light);
+    transform: translateX(-3px); /* Déplace légèrement à gauche */
+}
+
+/* ============================================
+   MAIN (CONTENU PRINCIPAL) - MOBILE FIRST
+   ============================================ */
+main {
+    width: 100%; /* Prend toute la largeur */
+    margin: 0 auto; /* Centre horizontalement */
+    padding: 1rem; /* Padding réduit sur mobile */
+    position: relative;
+    z-index: 1; /* Au-dessus du fond */
+}
+
+/* ============================================
+   GRILLE DE NAVIGATION (PAGE D'ACCUEIL)
+   ============================================ */
+.nav-grid {
+    display: grid; /* Utilise CSS Grid */
+    grid-template-columns: 1fr; /* Mobile : 1 colonne */
+    gap: 1rem; /* Espacement entre les cartes */
+    margin-top: 1rem;
+}
+
+/* ============================================
+   CARTES DE NAVIGATION
+   ============================================ */
+.nav-card {
+    /* Fond dégradé transparent (or → rouge) */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3); /* Bordure or semi-transparente */
+    border-radius: 12px; /* Coins arrondis */
+    padding: 1.25rem; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement (c'est un lien) */
+    color: var(--white); /* Texte blanc */
+    transition: all 0.3s ease; /* Transition fluide pour tous les changements */
+    position: relative; /* Pour les pseudo-éléments */
+    overflow: hidden; /* Cache ce qui dépasse */
+    backdrop-filter: blur(10px); /* Effet de flou en arrière-plan (effet verre) */
+    -webkit-tap-highlight-color: transparent; /* Enlève le surlignage au tap sur mobile */
+    touch-action: manipulation; /* Optimise le touch */
+}
+
+/* Effet de brillance au survol (pseudo-élément) */
+.nav-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%; /* Plus grand que la carte */
+    height: 200%;
+    /* Dégradé diagonal transparent → or → transparent */
+    background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+    transform: rotate(45deg); /* Tourné à 45° */
+    transition: all 0.5s;
+}
+
+/* Animation de brillance au clic/tap (mobile) */
+.nav-card:active::before {
+    animation: shine 0.5s ease-in-out;
+}
+
+/* Animation qui fait traverser la brillance */
+@keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); } /* Commence en haut-gauche */
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); } /* Finit en bas-droite */
+}
+
+/* État actif (clic/tap) */
+.nav-card:active {
+    transform: scale(0.98); /* Réduit légèrement la taille */
+    border-color: var(--gold); /* Bordure plus visible */
+}
+
+/* ============================================
+   ICÔNE DES CARTES
+   ============================================ */
+.card-icon {
+    font-size: 2.5rem; /* Taille des emojis */
+    margin-bottom: 0.75rem;
+    animation: bounce 2s ease-in-out infinite; /* Animation de rebond infinie */
+    display: block; /* Sur sa propre ligne */
+}
+
+/* Animation de rebond vertical */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); } /* Position normale */
+    50% { transform: translateY(-8px); } /* Monte de 8px */
+}
+
+/* ============================================
+   TITRE ET DESCRIPTION DES CARTES
+   ============================================ */
+.nav-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+    color: var(--gold); /* Titre en or */
+}
+
+.nav-card p {
+    color: var(--gold-light); /* Description en or clair */
+    opacity: 0.8; /* Légèrement transparent */
+    font-size: 0.9rem;
+    line-height: 1.4; /* Espacement entre les lignes */
+}
+
+/* ============================================
+   FOOTER (PIED DE PAGE)
+   ============================================ */
+footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 2rem;
+    color: var(--gold-light);
+    opacity: 0.7; /* Plus transparent */
+    position: relative;
+    z-index: 1;
+    font-size: 0.85rem; /* Plus petit */
+}
+
+/* ============================================
+   CONTAINER POUR LES CONFETTIS
+   ============================================
+   Container fixe où le JavaScript ajoute les confettis
+   ============================================ */
+.confetti-container {
+    position: fixed; /* Fixe par rapport à la fenêtre */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Ne bloque pas les clics */
+    z-index: 9999; /* Au-dessus de tout */
+    overflow: hidden; /* Cache ce qui dépasse */
+}
+
+/* ============================================
+   MEDIA QUERIES - TABLETTE (≥ 481px)
+   ============================================ */
+@media (min-width: 481px) {
+    header {
+        padding: 1.5rem; /* Plus d'espace */
+    }
+    
+    .title-glow {
+        font-size: 2.2rem; /* Plus grand */
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    main {
+        padding: 1.5rem;
+    }
+    
+    .nav-grid {
+        gap: 1.25rem; /* Plus d'espace entre les cartes */
+    }
+    
+    .nav-card {
+        padding: 1.5rem;
+        border-radius: 15px; /* Coins plus arrondis */
+    }
+    
+    .card-icon {
+        font-size: 3rem; /* Plus grand */
+    }
+    
+    .nav-card h2 {
+        font-size: 1.6rem;
+    }
+    
+    .nav-card p {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES - DESKTOP (≥ 769px)
+   ============================================ */
+@media (min-width: 769px) {
+    header {
+        padding: 2rem;
+    }
+    
+    .header-content {
+        max-width: 1200px; /* Limite la largeur pour la lisibilité */
+    }
+    
+    .title-glow {
+        font-size: 3rem; /* Encore plus grand */
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .back-link {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    
+    /* Effet hover sur desktop */
+    .back-link:hover {
+        color: var(--gold-light);
+        transform: translateX(-5px); /* Déplace plus à gauche */
+    }
+    
+    main {
+        max-width: 1200px; /* Limite la largeur */
+        padding: 2rem;
+    }
+    
+    /* Grille responsive : autant de colonnes que possible (min 250px par carte) */
+    .nav-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .nav-card {
+        padding: 2rem;
+    }
+    
+    /* Animation de brillance au survol (desktop) */
+    .nav-card:hover::before {
+        animation: shine 0.5s ease-in-out;
+    }
+    
+    /* Effet hover : lève la carte et agrandit */
+    .nav-card:hover {
+        transform: translateY(-10px) scale(1.05); /* Monte de 10px et agrandit de 5% */
+        border-color: var(--gold); /* Bordure plus visible */
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3); /* Ombre dorée */
+    }
+    
+    footer {
+        padding: 2rem;
+        margin-top: 4rem;
+        font-size: 1rem;
+    }
+    
+    /* Particules scintillantes plus visibles sur desktop */
+    body::after {
+        background-size: 100px 100px; /* Motif plus grand */
+        opacity: 0.5; /* Plus visible */
+    }
+    
+    /* Animation plus grande sur desktop */
+    @keyframes sparkle {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(100px, 100px); } /* Déplacement plus grand */
+    }
+}

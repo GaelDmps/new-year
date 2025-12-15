@@ -1,0 +1,225 @@
+/* ============================================
+   STYLES SPÉCIFIQUES - PAGE IDÉES
+   ============================================
+   Styles pour la grille des idées d'activités
+   ============================================ */
+
+/* ============================================
+   GRILLE DES IDÉES - MOBILE FIRST
+   ============================================ */
+.ideas-grid {
+    display: grid; /* Utilise CSS Grid */
+    grid-template-columns: 1fr; /* Mobile : 1 colonne */
+    gap: 1rem; /* Espacement entre les cartes */
+    margin-top: 1rem;
+}
+
+/* ============================================
+   CARTE D'IDÉE
+   ============================================ */
+.idea-card {
+    /* Fond dégradé transparent (or → rouge) */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3); /* Bordure or semi-transparente */
+    border-radius: 12px; /* Coins arrondis */
+    padding: 1.25rem; /* Espacement interne */
+    text-align: center; /* Centre le contenu */
+    transition: all 0.3s ease; /* Transition fluide */
+    position: relative; /* Pour les pseudo-éléments */
+    overflow: hidden; /* Cache ce qui dépasse */
+    backdrop-filter: blur(10px); /* Effet de flou en arrière-plan */
+    opacity: 0; /* Commence invisible pour l'animation */
+    animation: fadeInScale 0.6s ease forwards; /* Animation d'apparition */
+    -webkit-tap-highlight-color: transparent; /* Enlève le surlignage au tap */
+    touch-action: manipulation; /* Optimise le touch */
+}
+
+/* Délais d'animation progressifs pour chaque carte (effet cascade) */
+.idea-card:nth-child(1) { animation-delay: 0.1s; }
+.idea-card:nth-child(2) { animation-delay: 0.2s; }
+.idea-card:nth-child(3) { animation-delay: 0.3s; }
+.idea-card:nth-child(4) { animation-delay: 0.4s; }
+.idea-card:nth-child(5) { animation-delay: 0.5s; }
+.idea-card:nth-child(6) { animation-delay: 0.6s; }
+.idea-card:nth-child(7) { animation-delay: 0.7s; }
+.idea-card:nth-child(8) { animation-delay: 0.8s; }
+
+/* Animation d'apparition avec effet de zoom */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95); /* Commence légèrement plus petite */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1); /* Taille normale */
+    }
+}
+
+/* Bordure animée (créée avec ::before) - utilisée au hover sur desktop */
+.idea-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    /* Dégradé rotatif (or → rouge → or) */
+    background: linear-gradient(45deg, var(--gold), var(--red), var(--gold));
+    border-radius: 12px;
+    opacity: 0; /* Caché par défaut */
+    z-index: -1; /* Derrière le contenu */
+    transition: opacity 0.3s ease;
+}
+
+/* Bordure visible au clic/tap (mobile) */
+.idea-card:active::before {
+    opacity: 0.5; /* Semi-transparente */
+}
+
+/* État actif (clic/tap) */
+.idea-card:active {
+    transform: scale(0.98); /* Réduit légèrement */
+    border-color: var(--gold); /* Bordure plus visible */
+}
+
+/* ============================================
+   ICÔNE DE L'IDÉE
+   ============================================ */
+.idea-icon {
+    font-size: 3rem; /* Taille des emojis (mobile) */
+    margin-bottom: 0.75rem;
+    display: inline-block; /* Permet les transformations */
+    animation: float 3s ease-in-out infinite; /* Animation de flottement infinie */
+}
+
+/* Animation de flottement vertical avec légère rotation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); } /* Position normale */
+    50% { transform: translateY(-10px) rotate(3deg); } /* Monte et tourne légèrement */
+}
+
+/* ============================================
+   TITRE ET DESCRIPTION DE L'IDÉE
+   ============================================ */
+.idea-card h3 {
+    color: var(--gold); /* Titre en or */
+    font-size: 1.2rem; /* Taille mobile */
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.idea-card p {
+    color: var(--white);
+    opacity: 0.9; /* Légèrement transparent */
+    line-height: 1.5;
+    font-size: 0.9rem; /* Taille mobile */
+}
+
+/* ============================================
+   MEDIA QUERIES - TABLETTE (≥ 481px)
+   ============================================ */
+@media (min-width: 481px) {
+    /* Grille à 2 colonnes sur tablette */
+    .ideas-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales */
+        gap: 1.25rem; /* Plus d'espace */
+    }
+    
+    .idea-card {
+        padding: 1.5rem; /* Plus d'espace */
+        border-radius: 15px;
+    }
+    
+    .idea-icon {
+        font-size: 3.5rem; /* Plus grand */
+        margin-bottom: 1rem;
+    }
+    
+    .idea-card h3 {
+        font-size: 1.35rem;
+    }
+    
+    .idea-card p {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   MEDIA QUERIES - DESKTOP (≥ 769px)
+   ============================================ */
+@media (min-width: 769px) {
+    /* Grille responsive : autant de colonnes que possible (min 280px par carte) */
+    .ideas-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem; /* Encore plus d'espace */
+        margin-top: 2rem;
+    }
+    
+    .idea-card {
+        padding: 2rem; /* Encore plus d'espace */
+    }
+    
+    .idea-card::before {
+        border-radius: 15px;
+    }
+    
+    /* Bordure animée au survol (desktop) */
+    .idea-card:hover::before {
+        opacity: 1; /* Complètement visible */
+        animation: borderRotate 2s linear infinite; /* Rotation infinie */
+    }
+    
+    /* Animation de rotation de la bordure */
+    @keyframes borderRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); } /* Tour complet */
+    }
+    
+    /* Effet hover : lève la carte et la tourne légèrement */
+    .idea-card:hover {
+        transform: translateY(-10px) rotate(2deg); /* Monte de 10px et tourne de 2° */
+        box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4); /* Ombre dorée */
+        border-color: var(--gold); /* Bordure plus visible */
+    }
+    
+    .idea-icon {
+        font-size: 4rem; /* Encore plus grand */
+        margin-bottom: 1rem;
+    }
+    
+    /* Animation spéciale de l'icône au survol */
+    .idea-card:hover .idea-icon {
+        animation: spinAndFloat 0.6s ease; /* Rotation complète */
+    }
+    
+    /* Animation de rotation complète de l'icône */
+    @keyframes spinAndFloat {
+        0% { transform: rotate(0deg) scale(1); } /* Commence normal */
+        50% { transform: rotate(180deg) scale(1.2); } /* À mi-chemin : tourne et agrandit */
+        100% { transform: rotate(360deg) scale(1); } /* Fin : tour complet, taille normale */
+    }
+    
+    .idea-card h3 {
+        font-size: 1.5rem; /* Plus grand */
+        margin-bottom: 1rem;
+    }
+    
+    /* Animation d'apparition plus prononcée sur desktop */
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.8); /* Commence plus petite */
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    /* Animation de flottement plus prononcée sur desktop */
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(5deg); } /* Monte plus et tourne plus */
+    }
+}
