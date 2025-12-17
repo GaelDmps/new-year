@@ -17,14 +17,15 @@
    ============================================ */
 .shopping-category {
     /* Fond dégradé transparent (or → rouge) */
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
-    border: 2px solid rgba(255, 215, 0, 0.3); /* Bordure or semi-transparente */
-    border-radius: 12px; /* Coins arrondis */
-    padding: 1.25rem; /* Espacement interne (mobile) */
-    margin-bottom: 1.25rem; /* Espacement entre les catégories */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(220, 20, 60, 0.15) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.4); /* Bordure or plus visible */
+    border-radius: 15px; /* Coins arrondis */
+    padding: 1.5rem; /* Plus d'espacement interne (mobile) */
+    margin-bottom: 2rem; /* Plus d'espacement entre les catégories */
     backdrop-filter: blur(10px); /* Effet de flou en arrière-plan */
     opacity: 0; /* Commence invisible pour l'animation */
     animation: slideInLeft 0.6s ease forwards; /* Animation d'apparition */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre pour la profondeur */
 }
 
 /* Délais d'animation progressifs pour chaque catégorie (effet cascade) */
@@ -57,12 +58,15 @@
    ============================================ */
 .shopping-category h2 {
     color: var(--gold); /* Titre en or */
-    font-size: 1.4rem; /* Taille mobile */
-    margin-bottom: 1rem;
+    font-size: 1.6rem; /* Taille mobile plus grande */
+    font-weight: bold; /* Plus gras */
+    margin-bottom: 1.5rem; /* Plus d'espacement */
     text-align: center; /* Centré */
     position: relative;
     display: inline-block;
     width: 100%; /* Prend toute la largeur */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Lueur dorée */
+    letter-spacing: 0.5px; /* Espacement des lettres */
 }
 
 /* ============================================
@@ -71,33 +75,41 @@
 .shopping-list {
     list-style: none; /* Enlève les puces par défaut */
     padding: 0; /* Pas de padding */
+    display: grid; /* Utilise CSS Grid pour une meilleure organisation */
+    gap: 0.75rem; /* Espacement entre les items */
 }
 
 /* ============================================
    ITEM DE LA LISTE
    ============================================ */
 .shopping-item {
-    padding: 0.75rem; /* Espacement interne (mobile) */
-    margin-bottom: 0.5rem; /* Espacement entre les items */
-    background: rgba(255, 255, 255, 0.05); /* Fond blanc très transparent */
-    border-radius: 8px; /* Coins arrondis */
+    padding: 1rem 1rem 1rem 2rem; /* Plus d'espacement interne (mobile) */
+    margin-bottom: 0.75rem; /* Plus d'espacement entre les items */
+    background: rgba(255, 255, 255, 0.1); /* Fond blanc plus visible */
+    border: 1px solid rgba(255, 215, 0, 0.2); /* Bordure dorée subtile */
+    border-radius: 10px; /* Coins arrondis */
     color: var(--white); /* Texte blanc */
-    font-size: 0.95rem; /* Taille mobile */
-    line-height: 1.4; /* Espacement entre les lignes */
+    font-size: 1.1rem; /* Taille mobile plus grande */
+    font-weight: 500; /* Texte un peu plus gras pour la lisibilité */
+    line-height: 1.6; /* Plus d'espacement entre les lignes */
     word-break: break-word; /* Permet de couper les mots longs */
     list-style: none; /* Confirme qu'il n'y a pas de puce */
     position: relative; /* Pour la puce personnalisée */
-    padding-left: 1.5rem; /* Espace à gauche pour la puce */
+    transition: all 0.2s ease; /* Transition fluide */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Ombre pour meilleure lisibilité */
 }
 
 /* Puce personnalisée dorée (créée avec ::before) */
 .shopping-item::before {
-    content: '•'; /* Caractère puce */
+    content: '✓'; /* Caractère checkmark au lieu de puce */
     color: var(--gold); /* Couleur or */
     font-weight: bold; /* Gras */
-    font-size: 1.2rem; /* Plus grand que le texte */
+    font-size: 1.3rem; /* Plus grand que le texte */
     position: absolute; /* Positionné par rapport à .shopping-item */
-    left: 0.5rem; /* Position à gauche */
+    left: 0.75rem; /* Position à gauche */
+    top: 50%; /* Centré verticalement */
+    transform: translateY(-50%); /* Centré verticalement */
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); /* Lueur dorée */
 }
 
 /* ============================================
@@ -109,22 +121,31 @@
     }
     
     .shopping-category {
-        padding: 1.5rem; /* Plus d'espace */
-        margin-bottom: 1.5rem;
-        border-radius: 15px;
+        padding: 2rem; /* Plus d'espace */
+        margin-bottom: 2.5rem;
+        border-radius: 18px;
     }
     
     .shopping-category h2 {
-        font-size: 1.6rem; /* Plus grand */
-        margin-bottom: 1.25rem;
+        font-size: 1.8rem; /* Plus grand */
+        margin-bottom: 2rem;
+    }
+    
+    .shopping-list {
+        gap: 0.9rem; /* Plus d'espacement entre les items */
     }
     
     .shopping-item {
-        padding: 0.9rem; /* Plus d'espace */
-        padding-left: 1.75rem; /* Plus d'espace pour la puce */
-        margin-bottom: 0.6rem;
-        border-radius: 10px;
-        font-size: 1.05rem; /* Plus grand */
+        padding: 1.2rem 1.2rem 1.2rem 2.5rem; /* Plus d'espace */
+        margin-bottom: 0;
+        border-radius: 12px;
+        font-size: 1.15rem; /* Plus grand */
+        line-height: 1.7;
+    }
+    
+    .shopping-item::before {
+        left: 1rem; /* Plus d'espace pour la puce */
+        font-size: 1.4rem;
     }
 }
 
@@ -138,8 +159,8 @@
     }
     
     .shopping-category {
-        padding: 2rem; /* Encore plus d'espace */
-        margin-bottom: 2rem;
+        padding: 2.5rem; /* Encore plus d'espace */
+        margin-bottom: 3rem;
     }
     
     /* Effet hover sur desktop */
@@ -150,20 +171,34 @@
     }
     
     .shopping-category h2 {
-        font-size: 1.8rem; /* Encore plus grand */
-        margin-bottom: 1.5rem;
+        font-size: 2rem; /* Encore plus grand */
+        margin-bottom: 2rem;
+    }
+    
+    .shopping-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur desktop */
+        gap: 1rem; /* Plus d'espacement entre les items */
     }
     
     .shopping-item {
-        padding: 1rem; /* Encore plus d'espace */
-        padding-left: 2rem; /* Encore plus d'espace pour la puce */
-        font-size: 1.1rem; /* Plus grand */
+        padding: 1.3rem 1.3rem 1.3rem 2.8rem; /* Encore plus d'espace */
+        margin-bottom: 0;
+        font-size: 1.2rem; /* Plus grand */
+        line-height: 1.8;
+        background: rgba(255, 255, 255, 0.12); /* Fond encore plus visible */
+    }
+    
+    .shopping-item::before {
+        left: 1.2rem; /* Plus d'espace pour la puce */
+        font-size: 1.5rem;
     }
     
     /* Effet hover sur les items (desktop) */
     .shopping-item:hover {
-        background: rgba(255, 215, 0, 0.1); /* Fond plus visible */
-        transform: translateX(5px); /* Déplace vers la droite */
+        background: rgba(255, 215, 0, 0.15); /* Fond plus visible */
+        border-color: var(--gold); /* Bordure dorée */
+        transform: translateX(5px) scale(1.02); /* Déplace et agrandit légèrement */
+        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2); /* Ombre dorée */
     }
     
     /* Animation de glissement plus prononcée sur desktop */

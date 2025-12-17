@@ -146,9 +146,186 @@ header {
    ============================================ */
 .subtitle {
     font-size: 0.9rem; /* Plus petit que le titre */
-    color: var(--gold-light); /* Or clair */
-    opacity: 0.9; /* Légèrement transparent */
     padding: 0 0.5rem; /* Padding horizontal */
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Même police que la liste de courses */
+    /* Dégradé de texte festif (or → rouge → or) */
+    background: linear-gradient(90deg, var(--gold-light) 0%, var(--gold) 25%, var(--red) 50%, var(--gold) 75%, var(--gold-light) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* Ombre portée dorée */
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    /* Animation de dégradé qui bouge */
+    animation: subtitleShine 3s ease-in-out infinite, subtitleGlow 2s ease-in-out infinite alternate;
+    position: relative;
+    display: inline-block;
+}
+
+/* Animation qui fait bouger le dégradé */
+@keyframes subtitleShine {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* Animation de pulsation de lueur */
+@keyframes subtitleGlow {
+    from {
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.4));
+    }
+    to {
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 25px rgba(220, 20, 60, 0.4));
+    }
+}
+
+/* ============================================
+   DÉCOMPTE JUSQU'AU NOUVEL AN
+   ============================================ */
+.countdown-container {
+    margin-top: 2rem; /* Espacement depuis le sous-titre */
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.countdown-title {
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.countdown-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.countdown-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--gold);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    line-height: 1.2;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.countdown-label {
+    font-size: 0.7rem;
+    color: var(--gold-light);
+    opacity: 0.8;
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.countdown-separator {
+    font-size: 2rem;
+    color: var(--gold);
+    opacity: 0.6;
+    margin: 0 0.25rem;
+    animation: blink 1s ease-in-out infinite;
+}
+
+/* Animation de pulsation pour les nombres */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Animation de clignotement pour les séparateurs */
+@keyframes blink {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   MESSAGE DE FÉLICITATIONS NOUVEL AN
+   ============================================ */
+.new-year-message {
+    text-align: center;
+    padding: 2rem 1rem;
+    animation: newYearAppear 0.8s ease-out;
+}
+
+.new-year-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    /* Dégradé festif */
+    background: linear-gradient(90deg, var(--gold) 0%, var(--red) 50%, var(--gold) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: titleShine 2s linear infinite, titleBounce 1s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.new-year-subtitle {
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    opacity: 0.9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Même police que la liste de courses */
+    line-height: 1.6;
+}
+
+/* Animation d'apparition du message */
+@keyframes newYearAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Animation de brillance sur le titre */
+@keyframes titleShine {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* Animation de rebond sur le titre */
+@keyframes titleBounce {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.05);
+    }
 }
 
 /* ============================================
@@ -273,6 +450,7 @@ main {
     color: var(--gold-light); /* Description en or clair */
     opacity: 0.8; /* Légèrement transparent */
     font-size: 0.9rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Même police que la liste de courses */
     line-height: 1.4; /* Espacement entre les lignes */
 }
 
@@ -319,7 +497,38 @@ footer {
     }
     
     .subtitle {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        padding: 0.5rem 1rem;
+    }
+    
+    .countdown-container {
+        margin-top: 2.5rem;
+        padding: 2rem;
+    }
+    
+    .countdown-title {
+        font-size: 1.2rem;
+    }
+    
+    .countdown-number {
+        font-size: 2.5rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.8rem;
+    }
+    
+    .countdown-separator {
+        font-size: 2.5rem;
+    }
+    
+    .new-year-title {
+        font-size: 2.5rem;
+    }
+    
+    .new-year-subtitle {
+        font-size: 1.3rem;
     }
     
     main {
@@ -365,7 +574,54 @@ footer {
     }
     
     .subtitle {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        letter-spacing: 1.5px;
+        padding: 0.75rem 1.5rem;
+        margin-top: 0.5rem;
+    }
+    
+    .countdown-container {
+        margin-top: 3rem;
+        padding: 2.5rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .countdown-title {
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .countdown-display {
+        gap: 1rem;
+    }
+    
+    .countdown-item {
+        min-width: 80px;
+    }
+    
+    .countdown-number {
+        font-size: 3.5rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+    
+    .countdown-separator {
+        font-size: 3.5rem;
+        margin: 0 0.5rem;
+    }
+    
+    .new-year-title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .new-year-subtitle {
+        font-size: 1.5rem;
     }
     
     .back-link {

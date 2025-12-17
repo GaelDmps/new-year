@@ -27,10 +27,10 @@
    ============================================ */
 .participant-card {
     /* Fond dégradé transparent (or → rouge) */
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
-    border: 2px solid rgba(255, 215, 0, 0.3); /* Bordure or semi-transparente */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(220, 20, 60, 0.15) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.4); /* Bordure or plus visible */
     border-radius: 12px; /* Coins arrondis */
-    padding: 1.25rem; /* Espacement interne (mobile) */
+    padding: 1.5rem; /* Plus d'espacement interne (mobile) */
     text-align: center; /* Centre le contenu */
     backdrop-filter: blur(10px); /* Effet de flou en arrière-plan */
     transition: all 0.3s ease; /* Transition fluide */
@@ -38,6 +38,7 @@
     animation: fadeInUp 0.6s ease forwards; /* Animation d'apparition */
     -webkit-tap-highlight-color: transparent; /* Enlève le surlignage au tap */
     touch-action: manipulation; /* Optimise le touch */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre pour la profondeur */
 }
 
 /* Délais d'animation progressifs pour chaque carte (effet cascade) */
@@ -103,16 +104,21 @@
    ============================================ */
 .participant-card h3 {
     color: var(--gold); /* Titre en or */
-    font-size: 1.2rem; /* Taille mobile */
-    margin-bottom: 0.4rem;
-    line-height: 1.3;
+    font-size: 1.3rem; /* Taille mobile plus grande */
+    font-weight: bold; /* Plus gras */
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Lueur dorée */
 }
 
 .participant-card p {
     color: var(--white);
-    opacity: 0.8; /* Légèrement transparent */
+    opacity: 1; /* Pleine opacité pour meilleure lisibilité */
     margin-bottom: 0.75rem;
-    font-size: 0.9rem; /* Taille mobile */
+    font-size: 1rem; /* Taille mobile plus grande */
+    font-weight: 400;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Ombre pour meilleure lisibilité */
+    line-height: 1.6;
 }
 
 /* ============================================
@@ -184,8 +190,11 @@
 
 .summary-card .subtitle {
     color: var(--white);
-    opacity: 0.9;
-    font-size: 1rem; /* Taille mobile */
+    opacity: 1; /* Pleine opacité */
+    font-size: 1.1rem; /* Taille mobile plus grande */
+    font-weight: 500; /* Un peu plus gras */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Ombre pour meilleure lisibilité */
+    line-height: 1.6;
 }
 
 /* ============================================
@@ -218,8 +227,9 @@
     }
     
     .participant-card p {
-        font-size: 1rem;
+        font-size: 1.1rem; /* Plus grand */
         margin-bottom: 1rem;
+        line-height: 1.7;
     }
     
     .edit-btn, .add-btn {
@@ -245,7 +255,8 @@
     }
     
     .summary-card .subtitle {
-        font-size: 1.1rem;
+        font-size: 1.2rem; /* Plus grand */
+        line-height: 1.7;
     }
 }
 
@@ -286,12 +297,14 @@
     }
     
     .participant-card h3 {
-        font-size: 1.5rem; /* Plus grand */
+        font-size: 1.6rem; /* Plus grand */
         margin-bottom: 0.5rem;
     }
     
     .participant-card p {
+        font-size: 1.15rem; /* Plus grand sur desktop */
         margin-bottom: 1rem;
+        line-height: 1.8;
     }
     
     .edit-btn, .add-btn {
@@ -325,7 +338,8 @@
     }
     
     .summary-card .subtitle {
-        font-size: 1.2rem;
+        font-size: 1.3rem; /* Encore plus grand sur desktop */
+        line-height: 1.8;
     }
     
     /* Animation d'apparition plus prononcée sur desktop */

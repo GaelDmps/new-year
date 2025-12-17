@@ -512,6 +512,165 @@ function createGoldenParticle(container) {
 }
 
 // ============================================
+// DÉCOMPTE JUSQU'AU NOUVEL AN 2026
+// ============================================
+
+/**
+ * Initialise et met à jour le décompte jusqu'au 1er janvier 2026 à minuit
+ * Affiche les jours, heures, minutes et secondes restants
+ */
+function initCountdown() {
+    // Date cible : 1er janvier 2026 à minuit (heure locale)
+    const targetDate = new Date('2026-01-01T00:00:00');
+    
+    // Récupère les éléments HTML où afficher le décompte
+    const daysElement = document.getElementById('days');
+    const hoursElement = document.getElementById('hours');
+    const minutesElement = document.getElementById('minutes');
+    const secondsElement = document.getElementById('seconds');
+    const countdownTitle = document.getElementById('countdown-title');
+    const countdownDisplay = document.getElementById('countdown-display');
+    const newYearMessage = document.getElementById('new-year-message');
+    
+    // Si les éléments n'existent pas (pas sur la page d'accueil), on arrête
+    if (!daysElement || !hoursElement || !minutesElement || !secondsElement) {
+        return;
+    }
+    
+    // Variable pour savoir si on a déjà célébré le Nouvel An
+    let hasCelebrated = false;
+    
+    /**
+     * Crée une explosion massive de confettis pour célébrer le Nouvel An
+     */
+    function celebrateNewYear() {
+        if (hasCelebrated) return; // Ne célèbre qu'une seule fois
+        hasCelebrated = true;
+        
+        const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#DC143C'];
+        const confettiContainer = document.querySelector('.confetti-container');
+        if (!confettiContainer) return;
+        
+        // Crée plusieurs explosions depuis différents points de l'écran
+        const explosionPoints = [
+            { x: window.innerWidth / 2, y: window.innerHeight / 2 }, // Centre
+            { x: window.innerWidth / 4, y: window.innerHeight / 4 }, // Haut-gauche
+            { x: window.innerWidth * 3 / 4, y: window.innerHeight / 4 }, // Haut-droite
+            { x: window.innerWidth / 4, y: window.innerHeight * 3 / 4 }, // Bas-gauche
+            { x: window.innerWidth * 3 / 4, y: window.innerHeight * 3 / 4 }, // Bas-droite
+        ];
+        
+        // Explosions multiples avec délais progressifs
+        explosionPoints.forEach((point, index) => {
+            setTimeout(() => {
+                // Plus de confettis pour chaque explosion (50 au lieu de 20)
+                const burstCount = isMobile ? 30 : 50;
+                
+                for (let i = 0; i < burstCount; i++) {
+                    const confetti = document.createElement('div');
+                    const size = Math.random() * 12 + 6; // Taille entre 6px et 18px
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    const angle = (Math.PI * 2 * i) / burstCount;
+                    const velocity = Math.random() * 400 + 200; // Vitesse plus élevée
+                    
+                    confetti.style.position = 'fixed';
+                    confetti.style.width = size + 'px';
+                    confetti.style.height = size + 'px';
+                    confetti.style.backgroundColor = color;
+                    confetti.style.left = point.x + 'px';
+                    confetti.style.top = point.y + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '10000';
+                    
+                    confettiContainer.appendChild(confetti);
+                    
+                    const endX = point.x + Math.cos(angle) * velocity;
+                    const endY = point.y + Math.sin(angle) * velocity + 150;
+                    
+                    confetti.animate([
+                        { 
+                            transform: 'translate(0, 0) rotate(0deg) scale(1)',
+                            opacity: 1
+                        },
+                        { 
+                            transform: `translate(${endX - point.x}px, ${endY - point.y}px) rotate(1080deg) scale(0)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: 2000 + Math.random() * 1000, // Entre 2 et 3 secondes
+                        easing: 'ease-out',
+                        fill: 'forwards'
+                    }).onfinish = () => confetti.remove();
+                }
+            }, index * 200); // Délai de 200ms entre chaque explosion
+        });
+        
+        // Affiche le message de félicitations
+        if (countdownDisplay && newYearMessage) {
+            countdownDisplay.style.display = 'none';
+            newYearMessage.style.display = 'block';
+            
+            // Animation d'apparition du message
+            newYearMessage.style.opacity = '0';
+            newYearMessage.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                newYearMessage.style.transition = 'all 0.8s ease-out';
+                newYearMessage.style.opacity = '1';
+                newYearMessage.style.transform = 'scale(1)';
+            }, 100);
+        }
+        
+        // Change le titre
+        if (countdownTitle) {
+            countdownTitle.textContent = '🎉 Le Nouvel An est arrivé ! 🎉';
+        }
+    }
+    
+    /**
+     * Fonction qui met à jour l'affichage du décompte
+     */
+    function updateCountdown() {
+        // Date actuelle
+        const now = new Date();
+        
+        // Calcul de la différence en millisecondes
+        const difference = targetDate - now;
+        
+        // Si la date est passée, on célèbre le Nouvel An
+        if (difference <= 0) {
+            if (!hasCelebrated) {
+                celebrateNewYear();
+            }
+            daysElement.textContent = '0';
+            hoursElement.textContent = '0';
+            minutesElement.textContent = '0';
+            secondsElement.textContent = '0';
+            return;
+        }
+        
+        // Calcul des unités de temps
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        
+        // Met à jour l'affichage avec un format à 2 chiffres (ex: "05" au lieu de "5")
+        daysElement.textContent = String(days).padStart(2, '0');
+        hoursElement.textContent = String(hours).padStart(2, '0');
+        minutesElement.textContent = String(minutes).padStart(2, '0');
+        secondsElement.textContent = String(seconds).padStart(2, '0');
+    }
+    
+    // Met à jour immédiatement au chargement
+    updateCountdown();
+    
+    // Met à jour toutes les secondes
+    setInterval(updateCountdown, 1000);
+}
+
+// ============================================
 // INITIALISATION AU CHARGEMENT
 // ============================================
 
@@ -529,6 +688,7 @@ document.addEventListener('DOMContentLoaded', () => {
     animateOnScroll();          // Animations au scroll
     animateCounter();           // Compteur des participants
     createGoldenParticles();   // Particules dorées (desktop)
+    initCountdown();            // Décompte jusqu'au Nouvel An 2026
     
     // Effet spécial pour l'événement "minuit" dans le programme
     // Fait pulser la carte toutes les 3 secondes

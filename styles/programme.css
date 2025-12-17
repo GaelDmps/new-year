@@ -116,12 +116,13 @@
    ============================================ */
 .timeline-content {
     /* Fond dégradé transparent (or → rouge) */
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(220, 20, 60, 0.1) 100%);
-    border: 2px solid rgba(255, 215, 0, 0.3); /* Bordure or semi-transparente */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(220, 20, 60, 0.15) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.4); /* Bordure or plus visible */
     border-radius: 12px; /* Coins arrondis */
-    padding: 1rem; /* Espacement interne (mobile) */
+    padding: 1.25rem; /* Plus d'espacement interne (mobile) */
     backdrop-filter: blur(10px); /* Effet de flou en arrière-plan */
     transition: all 0.3s ease; /* Transition fluide */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre pour la profondeur */
 }
 
 /* État actif (clic/tap) */
@@ -133,9 +134,11 @@
 /* Titre de l'événement */
 .timeline-content h3 {
     color: var(--gold); /* Titre en or */
-    font-size: 1.2rem; /* Taille mobile */
-    margin-bottom: 0.4rem;
-    line-height: 1.3;
+    font-size: 1.3rem; /* Taille mobile plus grande */
+    font-weight: bold; /* Plus gras */
+    margin-bottom: 0.6rem; /* Plus d'espacement */
+    line-height: 1.4;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Lueur dorée */
 }
 
 /* ============================================
@@ -170,9 +173,12 @@
 /* Description de l'événement */
 .timeline-content p {
     color: var(--white);
-    opacity: 0.9; /* Légèrement transparent */
-    line-height: 1.5;
-    font-size: 0.9rem; /* Taille mobile */
+    opacity: 1; /* Pleine opacité pour meilleure lisibilité */
+    line-height: 1.7; /* Plus d'espacement entre les lignes */
+    font-size: 1rem; /* Taille mobile plus grande */
+    font-weight: 400;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Même police que la liste de courses */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Ombre pour meilleure lisibilité */
 }
 
 /* Style spécial pour l'événement highlight (minuit) */
@@ -249,7 +255,8 @@
     }
     
     .timeline-content p {
-        font-size: 1rem;
+        font-size: 1.1rem; /* Plus grand */
+        line-height: 1.8;
     }
 }
 
@@ -297,8 +304,13 @@
     }
     
     .timeline-content h3 {
-        font-size: 1.5rem; /* Plus grand */
-        margin-bottom: 0.5rem;
+        font-size: 1.6rem; /* Plus grand */
+        margin-bottom: 0.75rem; /* Plus d'espacement */
+    }
+    
+    .timeline-content p {
+        font-size: 1.15rem; /* Encore plus grand sur desktop */
+        line-height: 1.9;
     }
     
     /* Effet hover sur desktop */
