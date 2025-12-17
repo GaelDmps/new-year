@@ -84,31 +84,93 @@
 }
 
 /* ============================================
-   AVATAR DU PARTICIPANT
+   AVATAR DU PARTICIPANT (INITIALES)
    ============================================ */
 .participant-avatar {
-    font-size: 3rem; /* Taille de l'emoji (mobile) */
-    margin-bottom: 0.75rem;
-    display: inline-block; /* Permet les transformations */
-    animation: bounce 2s ease-in-out infinite; /* Animation de rebond infinie */
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--red) 100%);
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(255, 215, 0, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Animation de rebond vertical */
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); } /* Position normale */
-    50% { transform: translateY(-8px); } /* Monte de 8px */
+/* Effet de brillance sur l'avatar */
+.participant-avatar::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s;
+    opacity: 0;
+}
+
+.participant-card:hover .participant-avatar::before {
+    animation: shine 1s ease-in-out;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+        opacity: 0;
+    }
 }
 
 /* ============================================
    TITRE ET DESCRIPTION DU PARTICIPANT
    ============================================ */
 .participant-card h3 {
-    color: var(--gold); /* Titre en or */
-    font-size: 1.3rem; /* Taille mobile plus grande */
-    font-weight: bold; /* Plus gras */
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.4rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
     line-height: 1.4;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Lueur dorée */
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Ligne décorative sous le nom */
+.participant-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transition: width 0.3s ease;
+}
+
+.participant-card:hover h3::after {
+    width: 80%;
 }
 
 .participant-card p {
@@ -218,12 +280,14 @@
     }
     
     .participant-avatar {
-        font-size: 3.5rem; /* Plus grand */
+        width: 80px;
+        height: 80px;
+        font-size: 2.2rem;
         margin-bottom: 1rem;
     }
     
     .participant-card h3 {
-        font-size: 1.35rem;
+        font-size: 1.5rem;
     }
     
     .participant-card p {
@@ -293,11 +357,19 @@
     }
     
     .participant-avatar {
-        font-size: 4rem; /* Encore plus grand */
+        width: 90px;
+        height: 90px;
+        font-size: 2.5rem;
+    }
+    
+    .participant-card:hover .participant-avatar {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6), inset 0 0 30px rgba(255, 255, 255, 0.2);
+        border-color: var(--gold);
     }
     
     .participant-card h3 {
-        font-size: 1.6rem; /* Plus grand */
+        font-size: 1.7rem;
         margin-bottom: 0.5rem;
     }
     
@@ -354,9 +426,4 @@
         }
     }
     
-    /* Animation de rebond plus prononcée sur desktop */
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); } /* Monte plus */
-    }
 }
